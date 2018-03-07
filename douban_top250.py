@@ -32,7 +32,7 @@ def parse_html(html):
 
 def main():
 	url = DOWNLOAD_URL
-	with codecs.open('movies.txt', 'wb', encoding = 'utf-8') as fp:
+	with codecs.open('movies.txt', 'wb', encoding='utf-8') as fp:
 		while url:
 			html = get_html(url)
 			movies, url = parse_html(html)
