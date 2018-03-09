@@ -30,7 +30,7 @@ class GetQiuishibaike():
 
 	def parse_main_messages(self):
 		resp = self.subtract_n()
-		pattern = re.compile('<div class="author clearfix".*?<h2>(.*)</h2>.*?<div class="content">(.*?)</div>.*?<i class="number">(.*?)</i>.*?<i class="number">(.*?)</i>', re.S)
+		pattern = re.compile('<div class="author clearfix"[\s\S]*?<h2>([\s\S]*)</h2>[\s\S]*?<div class="content">([\s\S]*?)</div>[\s\S]*?<i class="number">([\s\S]*?)</i>[\s\S]*?<i class="number">([\s\S]*?)</i>')
 		all_messages = re.findall(pattern, resp)
 		return all_messages
 
