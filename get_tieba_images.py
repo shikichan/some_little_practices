@@ -15,7 +15,7 @@ parser.add_argument('-p')
 
 args = parser.parse_args()
 
-p = args.p
+p = args.p   #输入帖子号
 
 
 class GetImages():
@@ -25,7 +25,7 @@ class GetImages():
 				AppleWebKit/537.36 (KHTML, like Gecko) \
 				Chrome/47.0.2526.80 Safari/537.36'
 			}
-		self.url = 'http://tieba.baidu.com/p/{0}'.format(p)
+		self.url = 'http://tieba.baidu.com/p/{0}?see_lz=1'.format(p)
 
 	def get_resp(self):
 		"""获得网页响应"""
