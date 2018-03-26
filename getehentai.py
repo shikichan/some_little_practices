@@ -110,28 +110,27 @@ class GetEHantai():
 		"""下载单页里所有的漫画"""
 		
 		titles = self.get_titles()
-		titles = titles[:numbers]
-		n = 1
+		n = 0
 		for title in titles:
 			pagenum = 1
-			#if n == numbers:
-				#print('done')
-				#break
-			#title = titles[n]
+			if n == numbers:
+				print('done')
+				break
+			title = titles[n]
 			self.mkdir_in_one_page(title)   #创建同名漫画文件夹
-			#self.url = links[n]
-			#subpage = self.get_html()   #子网页
-			#self.url = subpage.xpath(self.xpath5)[0]
-			#print(self.url)   #获取进入漫画阅读界面url
+			self.url = links[n]
+			subpage = self.get_html()   #子网页
+			self.url = subpage.xpath(self.xpath5)[0]
+			print(self.url)   #获取进入漫画阅读界面url
 			n += 1
-			#p_end = self.get_end_p_num()
-			#print(p_end)
-			#failed_url = []
-			#while pagenum <= int(p_end):
-				#self.getcomics(pagenum, failed_url)
-				#pagenum += 1
+			p_end = self.get_end_p_num()
+			print(p_end)
+			failed_url = []
+			while pagenum <= int(p_end):
+				self.getcomics(pagenum, failed_url)
+				pagenum += 1
 			self.return_parent_dir()
-			#print(failed_url)
+			print(failed_url)
 			print('Done.') 
 
 	def get_next_page(self):
