@@ -62,7 +62,7 @@ class GetEHantai():
 			title = re.sub(punc, '_', title)
 		return title
 
-	def downImg(self, href, pagenum, failed_url):
+	def downImg(self, title, href, pagenum, failed_url):
 		"""保存漫画页面"""
 		try:
 			resp = requests.get(
@@ -72,10 +72,21 @@ class GetEHantai():
 			with open('num{}.jpg'.format(pagenum), 'wb') as file:
 				file.write(resp)
 			text = '正保存第{}张图片'.format(pagenum)
+			print(text)
 		except:
 			print('第{}页下载失败'.format(pagenum))
-			failed_url.append(href)
+			#failed_url.append(href)
+			failed_dict = self.get_dict(title, pagenum, href)
+			failed_url.append(failed_dict)
 
+
+	def get_dict(self, title, pagenum, href):
+		"""生成失败链接字典"""
+		failed_dict = {}
+		failed_dict['title'] = title
+		failed_dict['pagenum'] = pagenum
+		failed_dict['href'] = href
+		return failed_dict
 
 	def mkdir_in_one_page(self, title):
 		"""创建同名文件夹"""
@@ -85,13 +96,14 @@ class GetEHantai():
 			os.mkdir(title)
 		os.chdir(title)
 
-	def getcomics(self, pagenum, failed_url):
+	def getcomics(self, title, pagenum, failed_url):
 		html = self.get_html()
 		href = html.xpath(self.xpath3)[0]   #获取图片路径
 		next_page_link = '//*[@id="i3"]/a/@href'
 		self.url = html.xpath(next_page_link)[0]   #获取下一页路径
 		print(self.url)
-		self.downImg(href, pagenum, failed_url)
+
+		self.downImg(title, href, pagenum, failed_url)
 
 	def return_parent_dir(self):
 		"""返回主目录"""
@@ -127,7 +139,8 @@ class GetEHantai():
 			print(p_end)
 			failed_url = []
 			while pagenum <= int(p_end):
-				self.getcomics(pagenum, failed_url)
+				self.getcomics(title, pagenum, failed_url)
+				pass
 				pagenum += 1
 			self.return_parent_dir()
 			print(failed_url)
