@@ -1,6 +1,9 @@
-import mongo
+# -*- coding: utf-8 -*-
 import time
-from getehentai_v2 import GetEHantai as ehentai
+
+
+import write2db
+from getEhentai import GetEHantai as ehentai
 
 
 
@@ -23,8 +26,8 @@ while numbers > 25:
 		#get_ehentai.mkdirs()   #新建根目录
 		failed_url = get_ehentai.downloadimg(links, numbers)
 if failed_url:
-	mongo.write_in_failedDB(failed_url)
+	write2db.write_in_failedDB(failed_url)
 	# time.sleep(20)
-	mongo.redownload(get_ehentai)
+	write2db.redownload(get_ehentai)
 else:
 	print('下载完毕')

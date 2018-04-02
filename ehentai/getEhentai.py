@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 
-import mongo
+import write2db
 import requests
 import re
 import time
@@ -134,7 +134,7 @@ class GetEHantai():
 			if n == numbers:
 				print('所需要的漫画下载完毕\n')
 				break
-			a = mongo.write_in_savedDB(title)   #检查是否下载到上次下载目录
+			a = write2db.write_in_savedDB(title)   #检查是否下载到上次下载目录
 			if a == 1:
 				print('目录已存入数据库\n')
 			elif a == 0:	
